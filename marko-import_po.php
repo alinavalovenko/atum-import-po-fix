@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Marko Import_PO from CSV
- * Author: Nadiya Markovets
+ * Plugin Name: ATUM Import_PO from CSV
+ * Author: Alina Valovenko
  * Description: Import Purchase Orders data from .csv file.
- * Version: 0.9
+ * Version: 1.0
  */
 
 if ( ! defined( 'AIFC_BASEDIR' ) ) {
