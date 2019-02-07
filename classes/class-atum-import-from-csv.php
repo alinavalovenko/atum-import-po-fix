@@ -31,6 +31,7 @@ if ( ! class_exists( 'ATUM_Import_From_CSV' ) ) {
         }
 
         public function create_submenu_item(){
+	        wp_enqueue_script( 'av-script', VA_ASSETS . '/scripts.js', array( 'jquery' ), null, true );
             add_submenu_page( 'atum-dashboard', 'Import from CSV', 'Import from CSV', 'manage_options', 'import_csv', array( $this, 'render_page' ) );
         }
 
@@ -50,9 +51,9 @@ if ( ! class_exists( 'ATUM_Import_From_CSV' ) ) {
             <div class="wrap">
                 <h2><?php echo get_admin_page_title(); ?></h2>
 
-                <form enctype="multipart/form-data" action="<?php echo get_option( 'siteurl' ); ?>/aifc-upload-csv" method="POST">
+                <form enctype="multipart/form-data" action="" method="POST" id="av-atum-import-csv">
                     <?php wp_nonce_field( 'imports_csv', 'fileup_nonce' ); ?>
-                    <input name="imports_csv" class="" type="file" required/>
+                    <input name="imports_csv" class="" type="file" required id="imports_csv"/>
                     <input type="submit" class="button button-primary button-large" name="upload" value="Upload" />
                 </form>
             </div>

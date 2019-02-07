@@ -18,6 +18,12 @@ if ( ! defined( 'AIFC_CLASSESDIR' ) ) {
     define( 'AIFC_CLASSESDIR', AIFC_BASEDIR . 'classes' . DIRECTORY_SEPARATOR );
 }
 
+
+if ( ! defined( 'VA_PLUGIN_URL' ) ) {
+	define( 'VA_ASSETS', plugin_dir_url(__FILE__) . 'assets');
+}
+
+
 require_once AIFC_BASEDIR . 'functions.php';
 
 if ( ! init() ) {

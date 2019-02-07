@@ -20,32 +20,18 @@ if ( ! class_exists( 'AIFC_Upload_File' ) ) {
         function __construct(){
             $this->upload_page_url  = admin_url( 'admin.php?page=import_csv' );
 
-            add_action( 'template_redirect', array( $this, 'upload_file_handler' ) );
+            add_action( 'wp_ajax_upload_file_handler', array( $this, 'upload_file_handler' ) );
         }
 
         public function upload_file_handler(){
+        	$data = $_FILES;
+	        if ( $this->is_allowed_file_type() && $this->save_file() ) {
+		        echo 'success';
+	        } else{
+		        echo 'unsuccess';
 
-            $allowed_url        = preg_replace( '/http(s)?:\/\//', '', get_option( 'siteurl' ) . '/aifc-upload-csv' );
-
-
-            $full_request_url   = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-
-
-
-            if ( strcmp( $allowed_url, $full_request_url ) === 0 &&  wp_verify_nonce( $_POST['fileup_nonce'], 'imports_csv' ) ) {
-
-
-                if ( $this->is_allowed_file_type() && $this->save_file() ) {
-                    wp_redirect( admin_url( 'edit.php?post_type=atum_purchase_order' ) );
-                }else{
-                    wp_redirect( $this->upload_page_url . '&aifc_status=1' );
-                }
-
-            }
-
-            return true;
-            
-
+	        }
+        	wp_die();
         }
 
 
