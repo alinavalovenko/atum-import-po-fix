@@ -27,6 +27,7 @@ if ( ! class_exists( 'AIFC_DB_Worker' ) ) {
                 );
 
                 $args = array(
+	                'post_title'  => 'Test',
                     'post_type'     => 'atum_purchase_order',
                     'post_status'   => 'atum_pending',
                     'post_content'  => $description
