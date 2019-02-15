@@ -81,7 +81,7 @@ if ( ! class_exists( 'AIFC_DB_Worker' ) ) {
 					continue;
 				}
 				$product = wc_get_product( $product_id );
-				$item    = $atum_order->add_product( $product, $value['qty'] );
+				$item    = $atum_order->add_product( $product, floatval($value['qty']) );
 
 				add_post_meta( $product_id, "_w8_atum_purchase_order_{$this->po_id}", $value['qty'], true );
 
