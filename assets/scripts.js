@@ -14,7 +14,10 @@ jQuery(document).ready(function ($) {
             processData: false,
             data: form_data,
             type: 'post',
+            success: function () {
+                alert("Success!");
+            }
         });
-        alert('Finished');
+
     });
 });

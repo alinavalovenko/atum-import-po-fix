@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'AIFC_BASEDIR' ) ) {
-    define( 'AIFC_BASEDIR', WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'marko-import_po' . DIRECTORY_SEPARATOR );
+    define( 'AIFC_BASEDIR', plugin_dir_path(__FILE__) );
 }
 
 if ( ! defined( 'AIFC_TEMPDIR' ) ) {
