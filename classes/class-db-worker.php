@@ -75,7 +75,7 @@ if ( ! class_exists( 'AIFC_DB_Worker' ) ) {
 
 				};
 
-				$atum_order = Helpers::get_atum_order_model( $this->po_id );
+				$atum_order = new \Atum\PurchaseOrders\Models\PurchaseOrder(  $this->po_id );
 
 				if ( is_wp_error( $atum_order ) ) {
 					continue;
