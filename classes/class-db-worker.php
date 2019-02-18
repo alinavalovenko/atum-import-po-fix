@@ -53,44 +53,16 @@ if ( ! class_exists( 'AIFC_DB_Worker' ) ) {
 			if ( empty( $product_data ) || ! is_array( $product_data ) ) {
 				return false;
 			}
+			$atum_order = new \Atum\PurchaseOrders\Models\PurchaseOrder( $this->po_id );
+			foreach ($product_data as $product_sku => $item_data) {
+				$product_id = wc_get_product_id_by_sku($product_sku);
+				$order_item = $atum_order->add_product( wc_get_product( $product_id ), $item_data['qty'] );
 
-			foreach ( $product_data as $sku => $value ) {
-				$product_id = wc_get_product_id_by_sku( $sku );
-				if ( ! $product_id ) {
-					$args = array(
-						'post_type'  => 'product',
-						'post_title' => $value['title']
-					);
-
-					$product_id = wp_insert_post( $args, true );
-
-
-					if ( is_wp_error( $product_id ) ) {
-						$this->insert_product_error[] = $sku;
-						continue;
-					} else {
-						$this->added_product_count ++;
-						add_post_meta( $product_id, '_sku', $sku, true );
-					}
-
-				};
-
-				$atum_order = Helpers::get_atum_order_model( $this->po_id );
-
-				if ( is_wp_error( $atum_order ) ) {
-					continue;
-				}
-				$product = wc_get_product( $product_id );
-				$item    = $atum_order->add_product( $product, floatval($value['qty']) );
-
-				add_post_meta( $product_id, "_w8_atum_purchase_order_{$this->po_id}", $value['qty'], true );
+				$item = new Atum\PurchaseOrders\Items\POItemProduct();
 
 			}
-
-			do_action( 'aifc_done', $this->has_errors() );
-
+			add_post_meta( $product_id, "_w8_atum_purchase_order_{$this->po_id}", $item_data['qty'], true );
 		}
-
 
 		public function has_errors() {
 			return ! empty( $this->insert_product_error );
